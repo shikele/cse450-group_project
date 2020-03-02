@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //Outlet
+    // Outlet
 
     Rigidbody2D player_rigidBody;
     Rigidbody2D iron_rigidBody;
     public Transform aimPivot;
     public GameObject projectilePrefab;
-
+    SpriteRenderer sprite;
+    Animator animator;
     
     
     
 
-    //State Tracking
+    // State Tracking
 
-    public int jumpsleft;
+    public int jumpsLeft;
     public float timesleft;
     
     
@@ -26,18 +27,33 @@ public class PlayerController : MonoBehaviour
     {
         player_rigidBody = GameObject.Find("Player").GetComponent<Rigidbody2D>();
         iron_rigidBody = GameObject.Find("iron").GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
 
+    }
 
+    void FixedUpdate()
+    {
+        animator.SetFloat("Speed", player_rigidBody.velocity.magnitude);
+        if (player_rigidBody.velocity.magnitude > 0)
+        {
+            animator.speed = player_rigidBody.velocity.magnitude / 3f;
+        }
+        else
+        {
+            animator.speed = 1f;
+        }
     }
 
     // Update is called once per frame
     void Update()
 
     {
-        //move left, 4f based on the frame rate on my laptop
+        // move left, 4f based on the frame rate on my laptop
         if (Input.GetKey(KeyCode.A))
         {
             player_rigidBody.AddForce(Vector2.left * 4f);
+            sprite.flipX = true;
         }
 
         // move right
@@ -45,48 +61,22 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             player_rigidBody.AddForce(Vector2.right * 4f);
+            sprite.flipX = false;
         }
 
-        //move pivot
-
-        Vector3 mousePosition = Input.mousePosition;
-        Vector3 mousePositionInWorld = Camera.main.ScreenToWorldPoint(mousePosition);
-        Vector3 dicrectionFromPlayerToMouse = mousePositionInWorld - transform.position;
-
-        float radiansToMouse = Mathf.Atan2(dicrectionFromPlayerToMouse.y, dicrectionFromPlayerToMouse.x);
-        float angleToMouse = radiansToMouse * 180f / Mathf.PI;
-
-        aimPivot.rotation = Quaternion.Euler(0, 0, angleToMouse);
-
-
-       
-
-        // Shoot
-
-        if (Input.GetMouseButtonDown(0))
+        // jump
+        if (Input.GetKey(KeyCode.Space))
+        
         {
-            GameObject newProjectile = Instantiate(projectilePrefab);
-            newProjectile.transform.position = transform.position;
-            newProjectile.transform.rotation = aimPivot.rotation;
-        }
-        // spown an iron
-        
-        
-            
-            
-        
-
-       
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if(jumpsleft > 0)
+            if(jumpsLeft > 0)
             {
-                jumpsleft--;
-                player_rigidBody.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+                jumpsLeft--;
+                player_rigidBody.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
             }
         }
+        animator.SetInteger("JumpsLeft", jumpsLeft);
 
-        //rocket jump
+        // rocket jump
         if (Input.GetKey(KeyCode.C))
         {
             if (timesleft > 0)
@@ -106,6 +96,34 @@ public class PlayerController : MonoBehaviour
             }
             
         }
+
+        // move pivot
+
+        //Vector3 mousePosition = Input.mousePosition;
+        //Vector3 mousePositionInWorld = Camera.main.ScreenToWorldPoint(mousePosition);
+        //Vector3 dicrectionFromPlayerToMouse = mousePositionInWorld - transform.position;
+
+        //float radiansToMouse = Mathf.Atan2(dicrectionFromPlayerToMouse.y, dicrectionFromPlayerToMouse.x);
+        //float angleToMouse = radiansToMouse * 180f / Mathf.PI;
+
+        //aimPivot.rotation = Quaternion.Euler(0, 0, angleToMouse);
+
+
+       
+
+        // Shoot
+
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    GameObject newProjectile = Instantiate(projectilePrefab);
+        //    newProjectile.transform.position = transform.position;
+        //    newProjectile.transform.rotation = aimPivot.rotation;
+        //}
+        // spown an iron
+        
+        
+            
+        
 
         if (Input.GetKey(KeyCode.X))
         {
@@ -149,8 +167,8 @@ public class PlayerController : MonoBehaviour
                 RaycastHit2D hit = hits[i];
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
                 {
-                    jumpsleft = 2;
-                    timesleft = 2;
+                    jumpsLeft = 1;
+                    timesleft = 1;
                 }
             }
         }
