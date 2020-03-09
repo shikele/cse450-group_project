@@ -12,8 +12,10 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     SpriteRenderer sprite;
     Animator animator;
-    
-    
+
+    public float maxEnergy = 1f;
+    public float currentEnergy;
+    public EnergyBar energyBar;  
     
 
     // State Tracking
@@ -29,6 +31,8 @@ public class PlayerController : MonoBehaviour
         iron_rigidBody = GameObject.Find("iron").GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        currentEnergy = maxEnergy;
+        energyBar.SetMaxEnergy(maxEnergy);
 
     }
 
@@ -149,6 +153,8 @@ public class PlayerController : MonoBehaviour
             {
                 player_rigidBody.AddForce(Vector2.up * 4f);
                 timesleft -= Time.deltaTime;
+                currentEnergy -= Time.deltaTime;
+                energyBar.SetEnergy(currentEnergy);
             }
 
         }
@@ -169,6 +175,8 @@ public class PlayerController : MonoBehaviour
                 {
                     jumpsLeft = 1;
                     timesleft = 1;
+                    currentEnergy = maxEnergy;
+                    energyBar.SetEnergy(currentEnergy);
                 }
             }
         }

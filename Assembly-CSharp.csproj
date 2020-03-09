@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\scripts\EnergyBar.cs" />
     <Compile Include="Assets\scripts\Iron.cs" />
     <Compile Include="Assets\scripts\LevelBounds.cs" />
     <Compile Include="Assets\scripts\PlayerController.cs" />
