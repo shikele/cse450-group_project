@@ -53,6 +53,11 @@ public class PlayerController : MonoBehaviour
     void Update()
 
     {
+		if (Input.GetKey(KeyCode.Escape))
+		{
+            MenuController.instance.Show();
+		}
+
         // move left, 4f based on the frame rate on my laptop
         if (Input.GetKey(KeyCode.A))
         {
