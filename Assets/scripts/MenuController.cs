@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
+    public static MenuController instance;
+
     // Outlets
     public GameObject mainMenu;
     public GameObject optionsMenu;
@@ -12,7 +14,7 @@ public class MenuController : MonoBehaviour
     
 
 	void Awake(){
-		//instance = this;
+		instance = this;
         Hide();
 	}
 	
