@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
     // Outlet
-
     Rigidbody2D player_rigidBody;
     Rigidbody2D iron_rigidBody;
     public Transform aimPivot;
@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public int jumpsLeft;
     public float timesleft;
+    public bool isPaused = false; // for menu
     
     
     // Start is called before the first frame update
@@ -51,13 +52,17 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-
     {
-		if (Input.GetKey(KeyCode.Escape))
+        if (isPaused)
+        {
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
 		{
             MenuController.instance.Show();
 		}
-
+ 
         // move left, 4f based on the frame rate on my laptop
         if (Input.GetKey(KeyCode.A))
         {

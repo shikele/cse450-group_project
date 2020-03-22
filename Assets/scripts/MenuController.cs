@@ -34,12 +34,18 @@ public class MenuController : MonoBehaviour
 	{
         ShowMainMenu();
         gameObject.SetActive(true);
+        Time.timeScale = 0;
+        PlayerController.instance.isPaused = true;
 	}
 
     public void Hide()
-	{
+    {
         gameObject.SetActive(false);
-	}
+        Time.timeScale = 1;
+        if (PlayerController.instance != null){
+            PlayerController.instance.isPaused = false;
+        }
+    }
 
     void SwitchMenu(GameObject someMenu)
 	{
@@ -66,4 +72,19 @@ public class MenuController : MonoBehaviour
 	{
         SwitchMenu(levelMenu);
 	}
+
+    public void LoadLevel1()
+	{
+        SceneManager.LoadScene("Level1");
+	}
+
+    public void LoadLevel2()
+    {
+        SceneManager.LoadScene("Level2");
+    }
+
+    public void LoadLevel3()
+    {
+        SceneManager.LoadScene("Level3");
+    }
 }
