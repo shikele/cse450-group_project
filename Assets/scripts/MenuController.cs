@@ -75,7 +75,7 @@ public class MenuController : MonoBehaviour
 
     public void LoadLevel1()
 	{
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("level1");
 	}
 
     public void LoadLevel2()

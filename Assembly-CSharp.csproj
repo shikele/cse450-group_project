@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{C71F1DB9-E8EC-A338-48E0-C1FB6668F109}</ProjectGuid>
+    <ProjectGuid>{F8B1173A-3B44-5D40-883B-C4037E2727ED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -66,42 +66,44 @@
     <Compile Include="Assets\scripts\EnergyBar.cs" />
     <Compile Include="Assets\scripts\Iron.cs" />
     <Compile Include="Assets\scripts\LevelBounds.cs" />
+    <Compile Include="Assets\scripts\MenuController.cs" />
     <Compile Include="Assets\scripts\PlayerController.cs" />
+    <Compile Include="Assets\scripts\Portal.cs" />
     <Compile Include="Assets\scripts\Projectile.cs" />
     <Compile Include="Assets\scripts\Target.cs" />
     <Compile Include="Assets\scripts\parallax.cs" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/shike_4mv9xjg/Desktop/cse450/cse450-group_project-level/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/shike/OneDrive/Desktop/cse450/cse450-group_project-master/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/shike_4mv9xjg/Desktop/cse450/cse450-group_project-level/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/shike/OneDrive/Desktop/cse450/cse450-group_project-master/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/shike_4mv9xjg/Desktop/cse450/cse450-group_project-level/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/shike/OneDrive/Desktop/cse450/cse450-group_project-master/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/shike_4mv9xjg/Desktop/cse450/cse450-group_project-level/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/shike/OneDrive/Desktop/cse450/cse450-group_project-master/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/shike_4mv9xjg/Desktop/cse450/cse450-group_project-level/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/shike/OneDrive/Desktop/cse450/cse450-group_project-master/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/shike_4mv9xjg/Desktop/cse450/cse450-group_project-level/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/shike/OneDrive/Desktop/cse450/cse450-group_project-master/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/shike_4mv9xjg/Desktop/cse450/cse450-group_project-level/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/shike/OneDrive/Desktop/cse450/cse450-group_project-master/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>C:/Users/shike_4mv9xjg/Desktop/cse450/cse450-group_project-level/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>C:/Users/shike/OneDrive/Desktop/cse450/cse450-group_project-master/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>C:/Users/shike_4mv9xjg/Desktop/cse450/cse450-group_project-level/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+      <HintPath>C:/Users/shike/OneDrive/Desktop/cse450/cse450-group_project-master/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/shike_4mv9xjg/Desktop/cse450/cse450-group_project-level/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/shike/OneDrive/Desktop/cse450/cse450-group_project-master/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/shike_4mv9xjg/Desktop/cse450/cse450-group_project-level/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/shike/OneDrive/Desktop/cse450/cse450-group_project-master/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
