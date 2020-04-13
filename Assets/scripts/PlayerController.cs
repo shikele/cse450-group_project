@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     // Outlet
     public static PlayerController instance;
-    
+
     Rigidbody2D player_rigidBody;
     Rigidbody2D iron_rigidBody;
     Collider2D iron_collider;
@@ -17,10 +17,10 @@ public class PlayerController : MonoBehaviour
 
     public float maxEnergy = 1f;
     public float currentEnergy;
-    public EnergyBar energyBar;  
+    public EnergyBar energyBar;
 
 
-    
+
 
     // State Tracking
 
@@ -31,9 +31,11 @@ public class PlayerController : MonoBehaviour
     private int rocket_flag = 0;
     private int box_flag = 0;
     private int jump_flag = 0;
+    public bool jumpOnBox = false;
 
 
-    void Awake(){
+    void Awake()
+    {
         instance = this;
     }
     // Start is called before the first frame update
@@ -49,9 +51,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    
 
-    
+
+
     void FixedUpdate()
 
     {
@@ -80,7 +82,7 @@ public class PlayerController : MonoBehaviour
         // move left, 4f based on the frame rate on my laptop
         if (Input.GetKey(KeyCode.A))
         {
-            player_rigidBody.AddForce(Vector2.left * 10f);
+            player_rigidBody.AddForce(Vector2.left * 20f);
             sprite.flipX = true;
         }
 
@@ -88,15 +90,15 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D))
         {
-            player_rigidBody.AddForce(Vector2.right * 10f);
+            player_rigidBody.AddForce(Vector2.right * 20f);
             sprite.flipX = false;
         }
 
         // jump
         if (Input.GetKey(KeyCode.Space) && jump_flag == 1)
-        
+
         {
-            if(jumpsLeft > 0)
+            if (jumpsLeft > 0)
             {
                 jumpsLeft--;
                 player_rigidBody.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
@@ -118,11 +120,11 @@ public class PlayerController : MonoBehaviour
                     player_rigidBody.AddForce(dicrectionFromPlayerToIron.normalized * 20f);
                     timesleft -= Time.deltaTime;
                 }
-                
-                
-                
+
+
+
             }
-            
+
         }
 
         // move pivot
@@ -137,7 +139,7 @@ public class PlayerController : MonoBehaviour
         //aimPivot.rotation = Quaternion.Euler(0, 0, angleToMouse);
 
 
-       
+
 
         // Shoot
 
@@ -148,25 +150,35 @@ public class PlayerController : MonoBehaviour
         //    newProjectile.transform.rotation = aimPivot.rotation;
         //}
         // spown an iron
-        
-        
-            
+
+        resetIron();
+
         
 
         if (Input.GetKey(KeyCode.F))
         {
-
             var iron = GameObject.Find("iron");
-            if (iron) {
+            if (iron)
+            {
                 var pos = GameObject.Find("iron").transform.position;
                 Vector3 dicrectionFromPlayerToIron = transform.position - pos;
                 dicrectionFromPlayerToIron.z = 0;
-                if (Mathf.Abs(dicrectionFromPlayerToIron.x) <= 0.8){
+                if (Mathf.Abs(dicrectionFromPlayerToIron.x) <= 0.8)
+                {
                     dicrectionFromPlayerToIron.x = 0;
                 }
-                iron_rigidBody.AddForce(dicrectionFromPlayerToIron.normalized * 10f);
+                float dist = Vector3.Distance(pos, transform.position);
+                if (dist >= 1.2)
+                {
+                    iron_rigidBody.AddForce(dicrectionFromPlayerToIron.normalized * 10f);
+                    iron_rigidBody.constraints = RigidbodyConstraints2D.None;
+                }
+                else
+                {
+                    iron_rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                }
             }
-                
+
 
 
         }
@@ -188,14 +200,8 @@ public class PlayerController : MonoBehaviour
             print(rocket_flag.ToString());
             if (rocket_flag == 1 && box_flag == 1)
             {
-
-                
-
                 Vector2 v = new Vector2(15f, 200f);
                 iron_rigidBody.AddForce(v);
-                
-
-
             }
 
         }
@@ -203,7 +209,8 @@ public class PlayerController : MonoBehaviour
         {
             player_rigidBody.velocity = player_rigidBody.velocity.normalized * maxSpeed;
         }
-        if (iron_collider.IsTouching(GameObject.Find("canon").GetComponent<Collider2D>())){
+        if (iron_collider.IsTouching(GameObject.Find("canon").GetComponent<Collider2D>()))
+        {
 
             box_flag = 1;
         }
@@ -233,9 +240,23 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void resetIron()
+    {
+        var iron = GameObject.Find("iron");
+        if (iron)
+        {
+            var pos = GameObject.Find("iron").transform.position;
+            float dist = Vector3.Distance(pos, transform.position);
+            if (dist >= 0.8)
+            {
+                iron_rigidBody.constraints = RigidbodyConstraints2D.None;
+            }
+        }
+    }
+
     private void OnCollisionStay2D(Collision2D other)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, -transform.up, 0.7f);
 
@@ -250,8 +271,8 @@ public class PlayerController : MonoBehaviour
                     energyBar.SetEnergy(currentEnergy);
                     jump_flag = 1;
                 }
-                
-                
+
+
 
             }
         }
@@ -259,21 +280,30 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Button"))
+        if (jumpOnBox)
         {
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, -transform.up, 0.7f);
-
-            for (int i = 0; i < hits.Length; i++)
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Button"))
             {
-                RaycastHit2D hit = hits[i];
-                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Button"))
+                RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, -transform.up, 0.7f);
+
+                for (int i = 0; i < hits.Length; i++)
                 {
-                    rocket_flag = 1;
+                    RaycastHit2D hit = hits[i];
+                    if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Button"))
+                    {
+                        jumpsLeft = 1;
+                        timesleft = 1;
+                        currentEnergy = maxEnergy;
+                        energyBar.SetEnergy(currentEnergy);
+                        jump_flag = 1;
+                        rocket_flag = 1;
+                    }
+
+
                 }
 
-
             }
-            
         }
+        
     }
 }
