@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
                     var pos = GameObject.Find("iron").transform.position;
                     Vector3 dicrectionFromPlayerToIron = pos - transform.position;
                     dicrectionFromPlayerToIron.z = 0;
-                    player_rigidBody.AddForce(dicrectionFromPlayerToIron.normalized * 20f);
+                    player_rigidBody.AddForce(dicrectionFromPlayerToIron.normalized * 40f);
                     timesleft -= Time.deltaTime;
                 }
 
