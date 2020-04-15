@@ -83,6 +83,11 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene("level2");
     }
 
+    public void LoadLevel3()
+    {
+        SceneManager.LoadScene("level3");
+    }
+
     // public void LoadLevel3()
     // {
     //     SceneManager.LoadScene("Level3");

@@ -9,13 +9,9 @@ public class LevelBounds : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerController>())
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        if (other.gameObject.name == "iron")
-        {
-            Vector3 pos = new Vector3(3.41f, 1.46f, 0f);
-            other.transform.position = pos;
-            other.transform.rotation = Quaternion.identity;
+            PlayerController.instance.GetComponent<CapsuleCollider2D>().isTrigger = true;
+            PlayerController.instance.GetComponent<Rigidbody2D>().AddForce(Vector3.down * 100f);
+            PlayerController.instance.death = true;
         }
     }
 }

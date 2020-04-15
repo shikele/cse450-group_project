@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private int box_flag = 0;
     private int jump_flag = 0;
     public bool jumpOnBox = false;
+    public bool death = false;
 
 
     void Awake()
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        death = false;
         player_rigidBody = GameObject.Find("Player").GetComponent<Rigidbody2D>();
         iron_rigidBody = GameObject.Find("iron").GetComponent<Rigidbody2D>();
         iron_collider = GameObject.Find("iron").GetComponent<Collider2D>();
@@ -58,6 +60,7 @@ public class PlayerController : MonoBehaviour
 
     {
         animator.SetFloat("Speed", player_rigidBody.velocity.magnitude);
+        animator.SetBool("Death", death);
         if (player_rigidBody.velocity.magnitude > 0)
         {
             animator.speed = player_rigidBody.velocity.magnitude / 3f;
@@ -209,15 +212,20 @@ public class PlayerController : MonoBehaviour
         {
             player_rigidBody.velocity = player_rigidBody.velocity.normalized * maxSpeed;
         }
-        if (iron_collider.IsTouching(GameObject.Find("canon").GetComponent<Collider2D>()))
-        {
 
-            box_flag = 1;
-        }
-        else
+        if (GameObject.Find("canon"))
         {
-            box_flag = 0;
+            if (iron_collider.IsTouching(GameObject.Find("canon").GetComponent<Collider2D>()))
+            {
+                box_flag = 1;
+            }
+            else
+            {
+                box_flag = 0;
+            }
         }
+        
+        
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, -transform.up, 0.7f);
 
